@@ -135,12 +135,19 @@ function removeProductFromCart(productId) {
   - cartTotal should iterate through the cart to get the total of all products
   - cartTotal should return the sum of the products in the cart
 */
+// Calculate the total cost of products in the cart
 function cartTotal() {
   let total = 0;
   for (let i = 0; i < cart.length; i++) {
-    total += cart[i].price * cart[i].quantity;
+    // Calculate item total and format to two decimal points
+    let itemTotal = (cart[i].price * cart[i].quantity).toFixed(2);
+    // Convert item total back to a number
+    itemTotal = parseFloat(itemTotal);
+    // Add formatted item total to the running total
+    total += itemTotal;
   }
-  return total;
+  // Finally, ensure the overall total is rounded to two decimal points before returning
+  return parseFloat(total.toFixed(2));
 }
 
 /* Create a function called emptyCart that empties the products from the cart */
@@ -156,11 +163,10 @@ function emptyCart() {
   - pay will return a negative number if there is a remaining balance
   - pay will return a positive number if money should be returned to customer
 */
-let remainingBalance = 0;
+// Calculate the remaining balance after payment
 function pay(amount) {
   const total = cartTotal();
-  // Calculate remaining balance after payment
-  remainingBalance = amount - total;
+  const remainingBalance = parseFloat((amount - total).toFixed(2));
   return remainingBalance;
 }
 
